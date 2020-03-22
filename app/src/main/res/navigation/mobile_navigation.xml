@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/splash_fragment">
+
+    <fragment
+        android:id="@+id/splash_fragment"
+        android:name="com.adryanev.presensi.ui.splash.SplashFragment"
+        android:label="@string/Splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splash_fragment_to_nav_home"
+            app:destination="@id/navigation"
+            app:popUpTo="@id/splash_fragment" app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="com.adryanev.presensi.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_nav_home"
+            app:destination="@id/navigation" />
+    </fragment>
+    <navigation
+        android:id="@+id/navigation"
+        app:startDestination="@id/nav_home" >
+        <fragment
+            android:id="@+id/nav_home"
+            android:name="com.adryanev.presensi.ui.home.HomeFragment"
+            android:label="@string/menu_home"
+            tools:layout="@layout/fragment_home">
+
+            <action
+                android:id="@+id/action_HomeFragment_to_TunjanganFragment"
+                app:destination="@id/nav_tunjangan" />
+            <action
+                android:id="@+id/action_nav_home_to_loginFragment"
+                app:destination="@id/nav_login" />
+            <action
+                android:id="@+id/action_nav_home_to_nav_checkin"
+                app:destination="@id/nav_checkin" />
+            <action
+                android:id="@+id/action_nav_home_to_nav_checkout"
+                app:destination="@id/nav_checkout" />
+        </fragment>
+        <fragment
+            android:id="@+id/nav_checkin"
+            android:name="com.adryanev.presensi.ui.checkin.CheckinFragment"
+            android:label="@string/menu_checkin"
+            tools:layout="@layout/fragment_checkin" />
+        <fragment
+            android:id="@+id/nav_checkout"
+            android:name="com.adryanev.presensi.ui.checkout.CheckoutFragment"
+            android:label="@string/menu_checkout"
+            tools:layout="@layout/fragment_checkout" />
+        <fragment
+            android:id="@+id/nav_tunjangan"
+            android:name="com.adryanev.presensi.ui.tunjangan.TunjanganFragment"
+            android:label="@string/home_second"
+            tools:layout="@layout/fragment_tunjangan">
+
+        </fragment>
+    </navigation>
+</navigation>

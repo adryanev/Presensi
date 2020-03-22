@@ -1,0 +1,157 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    dataBinding.enabled = true
+
+    defaultConfig {
+        applicationId "com.adryanev.presensi"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        buildConfigField "String", "BASE_URL", '"https://www.thesportsdb.com"'
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+// To inline the bytecode built with JVM target 1.8 into
+// bytecode that is being built with JVM target 1.6. (e.g. navArgs)
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+
+    //ktx
+    implementation "androidx.core:core-ktx:$ktxVersion"
+
+    //anko
+    // Anko Commons
+    implementation "org.jetbrains.anko:anko-commons:$ankoVersion"
+
+    // Anko Layouts
+    implementation "org.jetbrains.anko:anko-sdk25:$ankoVersion"
+    // sdk15, sdk19, sdk21, sdk23 are also available
+    implementation "org.jetbrains.anko:anko-appcompat-v7:$ankoVersion"
+    implementation "org.jetbrains.anko:anko-design:$ankoVersion"
+
+    // Coroutine listeners for Anko Layouts
+    implementation "org.jetbrains.anko:anko-sdk25-coroutines:$ankoVersion"
+    implementation "org.jetbrains.anko:anko-appcompat-v7-coroutines:$ankoVersion"
+
+    // Anko SQLite
+    implementation "org.jetbrains.anko:anko-sqlite:$ankoVersion"
+
+    //koin
+    implementation "org.koin:koin-core:$koinVersion"
+    implementation "org.koin:koin-android:$koinVersion"
+    implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
+
+
+    //appcompat
+    implementation "androidx.appcompat:appcompat:$appcompatVersion"
+
+    //support legacy
+    implementation "androidx.legacy:legacy-support-v4:$legacySupportVersion"
+
+    //layout
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation "com.google.android.material:material:$materialVersion"
+    implementation "de.hdodenhof:circleimageview:$circleImageVersion"
+
+    //fragments
+    implementation "androidx.fragment:fragment-ktx:$fragmentVersion"
+
+    //viewpager
+    implementation "androidx.viewpager2:viewpager2:$viewPagerVersion"
+
+    //room
+    implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+
+    //navigation
+    implementation "androidx.navigation:navigation-fragment:$navigationVersion"
+    implementation "androidx.navigation:navigation-ui:$navigationVersion"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+
+    //lifecycle
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+
+    //coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+
+    //workmanager
+    implementation "androidx.work:work-runtime-ktx:$workVersion"
+
+    //recyclereview
+    implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
+
+
+    //libraries
+    //glide
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
+    //timber
+    implementation "com.jakewharton.timber:timber:$timberVersion"
+    //fakeit
+    implementation "com.github.moove-it:fakeit:$fakeitVersion"
+    //stetho
+    implementation "com.facebook.stetho:stetho:$stethoVersion"
+    implementation "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
+    //moshi
+    implementation "com.squareup.moshi:moshi:$moshiVersion"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+    //shimmer
+    implementation "com.facebook.shimmer:shimmer:$shimmerVersion"
+    implementation "com.todkars:shimmer-recyclerview:$shimmerRecyclerViewVersion"
+
+    //Room Shared Preference
+    implementation "com.github.skydoves:preferenceroom:$roomPreferenceVersion"
+    kapt "com.github.skydoves:preferenceroom-processor:$roomPreferenceVersion"
+
+
+
+    //testing dependencies
+    androidTestImplementation "androidx.arch.core:core-testing:$coreTestingVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espressoVersion"
+    androidTestImplementation "androidx.test:runner:$runnerVersion"
+    androidTestImplementation "androidx.test.ext:junit:$testExtJunit"
+    androidTestImplementation "androidx.test.uiautomator:uiautomator:$uiAutomatorVersion"
+    androidTestImplementation "androidx.work:work-testing:$workVersion"
+    androidTestImplementation "com.google.truth:truth:$truthVersion"
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.koin:koin-test:$koinVersion"
+}

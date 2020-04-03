@@ -11,11 +11,11 @@ data class Pegawai(
     @Json(name = "created_at")
     var createdAt: Int? = null,
     @Json(name = "id")
-    var id: Int? = null,
+    var id: Int = 0,
     @Json(name = "id_golongan")
-    var idGolongan: Int? = null,
+    var idGolongan: Int = 0,
     @Json(name = "id_user")
-    var idUser: Int? = null,
+    var idUser: Int = 0,
     @Json(name = "jabatan")
     var jabatan: String? = null,
     @Json(name = "nama")

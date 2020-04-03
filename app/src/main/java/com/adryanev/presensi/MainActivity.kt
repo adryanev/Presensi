@@ -14,7 +14,6 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.adryanev.presensi.data.preference.Preference_UserProfile
 import org.jetbrains.anko.support.v4.drawerLayout
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +22,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Preference_UserProfile.getInstance(this)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)

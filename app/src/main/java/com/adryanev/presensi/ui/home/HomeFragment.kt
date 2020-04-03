@@ -7,27 +7,40 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import com.adryanev.presensi.R
+import com.adryanev.presensi.databinding.FragmentHomeBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private val homeViewModel: HomeViewModel by viewModel()
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
+        val binding = FragmentHomeBinding.inflate(inflater, container, false)
         Timber.d("Masuk HomeFragment")
+        subscribeUI(binding);
+
+
+        return binding.root
+    }
+
+    private fun subscribeUI(binding: FragmentHomeBinding){
         homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
+            binding.textHome.text = it
         })
-        return root
+
+        homeViewModel.isLogin.observe(viewLifecycleOwner, Observer {
+            if(it == false){
+                val directions = HomeFragmentDirections.actionNavHomeToLoginFragment();
+                findNavController().navigate(directions,NavOptions.Builder().setPopUpTo(R.id.nav_home,true).build());
+            }
+        })
     }
 }

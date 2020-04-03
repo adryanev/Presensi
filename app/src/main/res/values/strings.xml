@@ -15,4 +15,7 @@
     <string name="home_second">Home Second</string>
     <string name="Splash">Splash</string>
     <string name="logo_instansi">logo instansi</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="login">Login</string>
 </resources>

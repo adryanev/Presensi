@@ -4,8 +4,10 @@ import android.app.Application
 import com.adryanev.presensi.di.appModule
 import com.adryanev.presensi.di.networkModule
 import com.adryanev.presensi.di.viewModelModule
+import com.birjuvachhani.locus.Locus
 import com.chibatching.kotpref.Kotpref
 import com.facebook.stetho.Stetho
+import com.google.android.gms.location.LocationRequest
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -22,6 +24,16 @@ class Presensi: Application() {
             androidLogger()
             androidContext(this@Presensi)
             modules(listOf(appModule, viewModelModule, networkModule))
+        }
+        Locus.configure {
+            enableBackgroundUpdates = true
+            forceBackgroundUpdates = true
+            request {
+                fastestInterval = 1000
+                priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+                interval = 5000
+                maxWaitTime = 10000
+            }
         }
     }
 }

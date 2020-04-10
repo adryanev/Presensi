@@ -96,6 +96,9 @@ dependencies {
     //room
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     kapt "androidx.room:room-compiler:$roomVersion"
 
     //navigation
@@ -152,10 +155,16 @@ dependencies {
     implementation "com.chibatching.kotpref:livedata-support:$kotPrefVersion"
     //toasty
     implementation "com.github.GrenderG:Toasty:$toastyVersion"
-    //dexter
     // Permission Dexter
     implementation "com.karumi:dexter:$dexterVersion"
+    //locus android
+    implementation "com.github.BirjuVachhani:locus-android:$locusVersion"
 
+    //playservices
+    //map
+    implementation "com.google.android.gms:play-services-maps:$playServiceMapsVersion"
+    //location
+    implementation "com.google.android.gms:play-services-location:$playServiceLocationVersion"
 
     //testing dependencies
     androidTestImplementation "androidx.arch.core:core-testing:$coreTestingVersion"
@@ -169,4 +178,6 @@ dependencies {
     androidTestImplementation "com.google.truth:truth:$truthVersion"
     testImplementation "junit:junit:$junitVersion"
     testImplementation "org.koin:koin-test:$koinVersion"
+
+
 }

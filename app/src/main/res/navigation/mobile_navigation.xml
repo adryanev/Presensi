@@ -22,7 +22,11 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_nav_home"
-            app:destination="@id/navigation" />
+            app:destination="@id/navigation"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <navigation
         android:id="@+id/navigation"
@@ -45,6 +49,9 @@
             <action
                 android:id="@+id/action_nav_home_to_nav_checkout"
                 app:destination="@id/nav_checkout" />
+            <action
+                android:id="@+id/action_nav_home_to_lokasiFragment"
+                app:destination="@id/nav_location" />
         </fragment>
         <fragment
             android:id="@+id/nav_checkin"
@@ -63,5 +70,10 @@
             tools:layout="@layout/fragment_tunjangan">
 
         </fragment>
+        <fragment
+            android:id="@+id/nav_location"
+            android:name="com.adryanev.presensi.ui.lokasi.LokasiFragment"
+            android:label="@string/lokasi_anda"
+            tools:layout="@layout/fragment_lokasi" />
     </navigation>
 </navigation>

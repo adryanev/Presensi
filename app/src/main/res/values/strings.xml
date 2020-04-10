@@ -18,4 +18,7 @@
     <string name="username">username</string>
     <string name="password">password</string>
     <string name="login">Login</string>
+    <string name="latlong">Latitude: %1$s Longitude: %2$s</string>
+    <string name="menu_location">Lokasi</string>
+    <string name="lokasi_anda">Lokasi Anda</string>
 </resources>

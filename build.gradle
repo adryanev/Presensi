@@ -8,6 +8,7 @@ buildscript {
         coreTestingVersion = '2.0.0'
         coroutinesVersion = "1.2.2"
         circleImageVersion="3.0.0"
+        dexterVersion ="6.0.1"
         espressoVersion = '3.2.0'
         fragmentVersion = '1.2.4'
         fakeitVersion="v0.7"
@@ -33,6 +34,7 @@ buildscript {
         stethoVersion = '1.5.1'
         timberVersion = '4.7.1'
         truthVersion = '0.42'
+        toastyVersion = '1.4.2'
         testExtJunit = '1.1.0'
         uiAutomatorVersion = '2.2.0'
         viewPagerVersion = '1.0.0'

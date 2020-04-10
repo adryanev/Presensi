@@ -2,6 +2,7 @@ package com.adryanev.presensi
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -14,21 +15,36 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import com.adryanev.presensi.databinding.ActivityMainBinding
+import com.adryanev.presensi.databinding.NavHeaderMainBinding
+import com.adryanev.presensi.utils.string.ResourceString
+import com.adryanev.presensi.utils.toast
+import kotlinx.android.synthetic.main.app_bar_main.*
 import org.jetbrains.anko.support.v4.drawerLayout
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
+    val viewModel: MainActivityViewModel by viewModel()
+    val navController by lazy {
+        findNavController(R.id.nav_host_fragment)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        val binding:ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
-        val navController = findNavController(R.id.nav_host_fragment)
+        val drawerLayout: DrawerLayout = binding.drawerLayout
+        val navView: NavigationView = binding.navView
+        val headerView: View = navView.getHeaderView(0);
+
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(setOf(
@@ -48,6 +64,21 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        val navHeaderBinding = NavHeaderMainBinding.bind(headerView)
+        navHeaderBinding.vm = viewModel
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.action_logout ->{
+                viewModel.logout()
+                navController.popBackStack(R.id.nav_login,true)
+                navController.navigate(R.id.nav_login)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

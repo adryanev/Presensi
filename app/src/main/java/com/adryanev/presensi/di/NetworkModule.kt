@@ -31,7 +31,7 @@ fun provideOkHttpClient(): OkHttpClient {
 
 fun provideRetrofit(okHttpClient: OkHttpClient) : Retrofit {
     return Retrofit.Builder()
-        .baseUrl(BuildConfig.BASE_URL)
+        .baseUrl(BuildConfig.BASE_API)
         .client(okHttpClient)
         .addConverterFactory(MoshiConverterFactory.create())
         .build()

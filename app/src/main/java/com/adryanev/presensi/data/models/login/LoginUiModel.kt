@@ -17,8 +17,6 @@ data class LoginUiModel(var username:String? = null, var password:String? = null
             jabatan = loginData.pegawai?.jabatan
             accessToken = loginData.user?.accessToken
             group = loginData.user?.group
-
-
         }
     }
 

@@ -15,7 +15,8 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        buildConfigField "String", "BASE_URL", '"http://10.0.2.2/premenag/web/api/"'
+        buildConfigField "String", "BASE_URL", '"https://310468e0.ngrok.io/"'
+        buildConfigField "String", "BASE_API", '"https://310468e0.ngrok.io/api/"'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -149,6 +150,11 @@ dependencies {
     implementation "com.chibatching.kotpref:enum-support:$kotPrefVersion"
     // kotpref.optional, support LiveData observable preference
     implementation "com.chibatching.kotpref:livedata-support:$kotPrefVersion"
+    //toasty
+    implementation "com.github.GrenderG:Toasty:$toastyVersion"
+    //dexter
+    // Permission Dexter
+    implementation "com.karumi:dexter:$dexterVersion"
 
 
     //testing dependencies

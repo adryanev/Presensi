@@ -1,10 +1,12 @@
-package com.adryanev.presensi.data.networks
+package com.adryanev.presensi.data.networks.repositories
 
+import com.adryanev.presensi.data.networks.PremenagApi
 import com.adryanev.presensi.data.networks.response.LoginResponse
 import com.adryanev.presensi.utils.api.Resource
 import com.adryanev.presensi.utils.api.ResponseHandler
 
-class RemoteRepository(val premenagApi: PremenagApi, val responseHandler: ResponseHandler):Repository {
+class RemoteRepository(val premenagApi: PremenagApi, val responseHandler: ResponseHandler):
+    Repository {
     override suspend fun login(username: String, password: String): Resource<LoginResponse> {
 
         return try {

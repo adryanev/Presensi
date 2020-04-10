@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.adryanev.presensi">
 
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <application
         android:name=".Presensi"
         android:allowBackup="true"

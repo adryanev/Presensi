@@ -60,9 +60,11 @@ class LokasiFragment : Fragment(){
                val lat = location.latitude.toString()
                val long = location.longitude.toString()
                 binding?.latlong?.text = getString(R.string.latlong,lat,long)
+               val marker = MarkerOptions().position(LatLng(location.latitude, location.longitude)).title(getString(R.string.lokasi_anda));
                binding?.mapView?.getMapAsync {
                    it.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(location.latitude,location.longitude),18f))
-                   it.addMarker(MarkerOptions().position(LatLng(location.latitude, location.longitude)).title(getString(R.string.lokasi_anda)))
+                   it.addMarker(marker)
+
                }
 
                 requireContext().toast(ToastHelper.Info, "Current Location: lat=${lat} long=${long}")

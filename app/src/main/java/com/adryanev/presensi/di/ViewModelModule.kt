@@ -18,5 +18,5 @@ val viewModelModule = module {
     viewModel { CheckinViewModel() }
     viewModel { CheckoutViewModel() }
     viewModel { TunjanganViewModel() }
-    viewModel { LokasiViewModel() }
+    viewModel { LokasiViewModel(get(),get(), get()) }
 }

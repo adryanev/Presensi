@@ -17,6 +17,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.work.Constraints
+import androidx.work.NetworkType
+import androidx.work.WorkManager
 import com.adryanev.presensi.databinding.ActivityMainBinding
 import com.adryanev.presensi.databinding.NavHeaderMainBinding
 import com.adryanev.presensi.utils.string.ResourceString
@@ -66,6 +69,8 @@ class MainActivity : AppCompatActivity() {
         }
         val navHeaderBinding = NavHeaderMainBinding.bind(headerView)
         navHeaderBinding.vm = viewModel
+
+
 
     }
 

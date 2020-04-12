@@ -3,6 +3,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
+
 
 def secretFile = rootProject.file("secret.properties")
 def properties = new Properties()
@@ -19,8 +22,8 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        buildConfigField "String", "BASE_URL", '"https://310468e0.ngrok.io/"'
-        buildConfigField "String", "BASE_API", '"https://310468e0.ngrok.io/api/"'
+        buildConfigField "String", "BASE_URL", '"https://f0700a7d.ngrok.io/"'
+        buildConfigField "String", "BASE_API", '"https://f0700a7d.ngrok.io/api/"'
         buildConfigField "String", "GOOGLE_MAPS_API_KEY", "\"${properties['GOOGLE_MAPS_API_KEY']}\""
 
         resValue("string", "GOOGLE_MAPS_API_KEY", "${properties["GOOGLE_MAPS_API_KEY"]}")
@@ -172,6 +175,11 @@ dependencies {
     implementation "com.google.android.gms:play-services-maps:$playServiceMapsVersion"
     //location
     implementation "com.google.android.gms:play-services-location:$playServiceLocationVersion"
+    //firebase
+    implementation "com.google.firebase:firebase-analytics:$firebaseVersion"
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta04'
+    implementation 'com.google.firebase:firebase-database-ktx:19.2.1'
+
 
     //testing dependencies
     androidTestImplementation "androidx.arch.core:core-testing:$coreTestingVersion"

@@ -4,7 +4,6 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.crashlytics'
 
 
 def secretFile = rootProject.file("secret.properties")
@@ -175,10 +174,14 @@ dependencies {
     implementation "com.google.android.gms:play-services-maps:$playServiceMapsVersion"
     //location
     implementation "com.google.android.gms:play-services-location:$playServiceLocationVersion"
-    //firebase
+    //firestore
     implementation "com.google.firebase:firebase-analytics:$firebaseVersion"
-    implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta04'
-    implementation 'com.google.firebase:firebase-database-ktx:19.2.1'
+//    implementation 'com.google.firestore:firestore-database-ktx:19.2.1'
+    implementation 'com.google.firebase:firebase-firestore-ktx:21.4.2'
+
+    implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
+
+
 
 
     //testing dependencies

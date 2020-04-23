@@ -18,8 +18,9 @@
     <string name="username">username</string>
     <string name="password">password</string>
     <string name="login">Login</string>
-    <string name="latlong">Latitude: %1$s Longitude: %2$s</string>
+    <string name="latlong">Latitude: %1$.3f Longitude: %2$.3f</string>
     <string name="menu_location">Lokasi</string>
     <string name="lokasi_anda">Lokasi Anda</string>
     <string name="bagikan_lokasi">Bagikan Lokasi</string>
+    <string name="lokasi_terakhir_diakses">Terakhir di Update: %s</string>
 </resources>

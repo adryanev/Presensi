@@ -18,14 +18,26 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/lokasi_terakhir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/latlong"
+                app:layout_constraintStart_toStartOf="@+id/latlong"
+                app:layout_constraintTop_toBottomOf="@+id/latlong"
+                tools:text="@string/lokasi_terakhir_diakses"
+                app:epochToHuman="@{vm.time}"/>
+
+            <TextView
                 android:id="@+id/latlong"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="@{@string/latlong(vm.lokasi.latitude, vm.lokasi.longitude)}"
+                android:text="@{@string/latlong(vm.latitude, vm.longitude)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mapView" />
+                app:layout_constraintTop_toBottomOf="@+id/mapView"
+                tools:text="@string/latlong" />
 
             <com.google.android.gms.maps.MapView
                 android:id="@+id/mapView"
@@ -46,7 +58,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/latlong" />
+                app:layout_constraintTop_toBottomOf="@+id/latlong"
+                android:checked="@{vm.isOn}"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

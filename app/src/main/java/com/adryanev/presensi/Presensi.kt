@@ -8,6 +8,7 @@ import com.adryanev.presensi.di.viewModelModule
 import com.birjuvachhani.locus.Locus
 import com.facebook.stetho.Stetho
 import com.google.android.gms.location.LocationRequest
+import com.jakewharton.threetenabp.AndroidThreeTen
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -18,6 +19,7 @@ class Presensi : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        AndroidThreeTen.init(this);
         Stetho.initializeWithDefaults(this)
         Timber.plant(Timber.DebugTree())
         startKoin {

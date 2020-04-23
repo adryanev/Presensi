@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import com.adryanev.presensi.R
+import com.adryanev.presensi.data.firestore.LocationModel
 import com.adryanev.presensi.databinding.FragmentLokasiBinding
 import com.adryanev.presensi.utils.ToastHelper
 import com.adryanev.presensi.utils.toast
@@ -25,13 +27,15 @@ import org.jetbrains.anko.sdk25.coroutines.onCheckedChange
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class LokasiFragment : Fragment(){
+class LokasiFragment : Fragment() {
 
     val viewModel: LokasiViewModel by viewModel()
     private lateinit var binding: FragmentLokasiBinding
-    companion object{
+
+    companion object {
         val MAPVIEW_BUNDLE_KEY = "MapViewBundleKey"
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,20 +46,21 @@ class LokasiFragment : Fragment(){
             mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY)
         }
         binding.mapView.onCreate(mapViewBundle)
-
         binding.vm = viewModel
-        runPerission()
+        runPermission()
         return binding.root
     }
 
-    val dexterReportListener =object :MultiplePermissionsListener{
+    val dexterReportListener = object : MultiplePermissionsListener {
         override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
             report?.let {
-                if(it.areAllPermissionsGranted()){
+                if (it.areAllPermissionsGranted()) {
+                    Timber.d("all permission granted")
                     subscribeUi(binding)
                 }
-                if(it.isAnyPermissionPermanentlyDenied){
-                    requireContext().toast(ToastHelper.Error,"Harus menyetujui permission")
+                if (it.isAnyPermissionPermanentlyDenied) {
+                    requireContext().toast(ToastHelper.Error, "Harus menyetujui permission")
+                    findNavController().popBackStack(R.id.nav_home, true)
                 }
 
             }
@@ -69,25 +74,25 @@ class LokasiFragment : Fragment(){
         }
 
     }
-    private fun runPerission() {
 
-        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q){
+    private fun runPermission() {
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
             Dexter.withActivity(requireActivity()).withPermissions(
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_BACKGROUND_LOCATION
             ).withListener(dexterReportListener).withErrorListener {
-                requireContext().toast(ToastHelper.Error,it.toString())
-                findNavController().popBackStack(R.id.nav_home,true)
+                requireContext().toast(ToastHelper.Error, it.toString())
+                findNavController().popBackStack(R.id.nav_home, true)
             }.check()
-        }
-        else{
+        } else {
             Dexter.withActivity(requireActivity()).withPermissions(
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ).withListener(dexterReportListener).withErrorListener {
-                requireContext().toast(ToastHelper.Error,it.toString())
-                findNavController().popBackStack(R.id.nav_home,true)
+                requireContext().toast(ToastHelper.Error, it.toString())
+                findNavController().popBackStack(R.id.nav_home, true)
 
             }.check()
         }
@@ -104,49 +109,47 @@ class LokasiFragment : Fragment(){
         binding.mapView.onSaveInstanceState(mapViewBundle)
     }
 
-    override fun onResume() {
-        super.onResume()
-        subscribeUi(binding)
-    }
-
-
 
     private fun subscribeUi(binding: FragmentLokasiBinding?) {
 
-        viewModel.lokasi.observe(viewLifecycleOwner, Observer { data ->
-            data?.let { location ->
-                val marker = MarkerOptions().position(LatLng(location.latitude, location.longitude)).title(getString(R.string.lokasi_anda));
-                Timber.d("Lokasi Sekarang = ${location.latitude}, ${location.longitude}")
-                binding?.mapView?.getMapAsync {
-                    it.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(location.latitude,location.longitude),18f))
-                    it.addMarker(marker)
+        Timber.d("Subscribe UI")
+        viewModel.latitude.observe(viewLifecycleOwner, Observer { Timber.d(it.toString()) })
+        viewModel.longitude.observe(viewLifecycleOwner, Observer { Timber.d(it.toString()) })
+        viewModel.time.observe(viewLifecycleOwner, Observer { Timber.d(it.toString()) })
+        viewModel.mediatorLiveData.observe(viewLifecycleOwner, Observer {
+            Timber.d("Observing Mediator Live Data")
+        })
+        viewModel.getLocation().observe(viewLifecycleOwner, Observer { locationModel ->
+            Timber.d("Observing Current Location")
+            val latitude = locationModel.latitude
+            val longitude = locationModel.longitude
+//            binding?.latlong?.text = getString(R.string.latlong,latitude,longitude)
+            val time = locationModel.time
+            val marker = MarkerOptions().position(LatLng(latitude, longitude))
+                .title(getString(R.string.lokasi_anda));
+            Timber.d("Lokasi Sekarang = ${latitude}, ${longitude}")
+            binding?.mapView?.getMapAsync {
+                it.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(latitude, longitude), 18f))
+                it.addMarker(marker)
 
+            }
+        })
+
+        viewModel.isOn.observe(viewLifecycleOwner, Observer { _ ->
+
+            binding?.lokasiSwitch?.onCheckedChange { buttonView, isChecked ->
+                if (buttonView!!.isPressed) {
+                    if (isChecked) {
+                        viewModel.turnOnLocation()
+                    } else {
+                        viewModel.turnOffLocation()
+                    }
                 }
-
             }
 
         })
 
-        viewModel.isOn.observe(viewLifecycleOwner, Observer { isOn ->
-            val lokasiSwitch = binding?.lokasiSwitch
-            lokasiSwitch?.isChecked = isOn
-
-                binding?.lokasiSwitch?.onCheckedChange { buttonView, isChecked ->
-                   if(buttonView!!.isPressed){
-                       if(isChecked){
-                           viewModel.turnOnLocation()
-                       }
-                       else{
-                           viewModel.turnOffLocation()
-                       }
-                   }
-                }
-
-        })
-
     }
-
-
 
 
 }

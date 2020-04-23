@@ -21,8 +21,8 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        buildConfigField "String", "BASE_URL", '"https://f0700a7d.ngrok.io/"'
-        buildConfigField "String", "BASE_API", '"https://f0700a7d.ngrok.io/api/"'
+        buildConfigField "String", "BASE_URL", '"https://4e41d2af.ngrok.io"'
+        buildConfigField "String", "BASE_API", '"https://4e41d2af.ngrok.io/api/"'
         buildConfigField "String", "GOOGLE_MAPS_API_KEY", "\"${properties['GOOGLE_MAPS_API_KEY']}\""
 
         resValue("string", "GOOGLE_MAPS_API_KEY", "${properties["GOOGLE_MAPS_API_KEY"]}")
@@ -59,6 +59,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
 
+    //java 8 backports
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.3'
     //ktx
     implementation "androidx.core:core-ktx:$ktxVersion"
 
@@ -179,6 +181,7 @@ dependencies {
 //    implementation 'com.google.firestore:firestore-database-ktx:19.2.1'
     implementation 'com.google.firebase:firebase-firestore-ktx:21.4.2'
 
+    //guava conflict resolver
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
 
 
